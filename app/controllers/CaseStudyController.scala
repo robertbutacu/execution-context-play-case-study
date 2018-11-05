@@ -4,17 +4,23 @@ import javax.inject.Inject
 import play.api.mvc.{Action, Controller}
 import services.{ExecutionContextImplicitlyService, ExecutionContextInjectedService}
 
+import scala.concurrent.Future
+
 class CaseStudyController @Inject()(injectedEC: ExecutionContextInjectedService,
                                     implicitEC: ExecutionContextImplicitlyService) extends Controller {
-  def firstCase() = Action {
+  def firstCase() = Action.async {
     implicit request =>
-      injectedEC.execute()
-      Ok("")
+      Future {
+        injectedEC.execute()
+        Ok("")
+      }
   }
 
-  def secondCase() = Action {
+  def secondCase() = Action.async {
     implicit request =>
-      implicitEC.execute()
-      Ok("")
+      Future {
+        implicitEC.execute()
+        Ok("")
+      }
   }
 }

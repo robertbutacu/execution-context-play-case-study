@@ -1,13 +1,14 @@
 package controllers
 
 import javax.inject.Inject
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{AbstractController, ControllerComponents}
 import services.{ExecutionContextImplicitlyService, ExecutionContextInjectedService}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class CaseStudyController @Inject()(injectedEC: ExecutionContextInjectedService,
-                                    implicitEC: ExecutionContextImplicitlyService) extends Controller {
+                                    implicitEC: ExecutionContextImplicitlyService,
+                                    cc: ControllerComponents)(implicit executionContext: ExecutionContext) extends AbstractController(cc) {
   def firstCase() = Action.async {
     implicit request =>
       Future {

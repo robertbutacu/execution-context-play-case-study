@@ -12,6 +12,7 @@ class CaseStudyController @Inject()(injectedEC: ExecutionContextInjectedService,
   def firstCase() = Action.async {
     implicit request =>
       Future {
+        println(s" [Controller][Injected ec] ${Thread.currentThread().getName} with a hash code of : ${Thread.currentThread().hashCode()}")
         injectedEC.execute()
         Ok("")
       }
@@ -20,6 +21,7 @@ class CaseStudyController @Inject()(injectedEC: ExecutionContextInjectedService,
   def secondCase() = Action.async {
     implicit request =>
       Future {
+        println(s" [Controller][Implicit ec] ${Thread.currentThread().getName} with a hash code of : ${Thread.currentThread().hashCode()}")
         implicitEC.execute()
         Ok("")
       }

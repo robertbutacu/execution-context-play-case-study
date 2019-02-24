@@ -8,6 +8,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class ExecutionContextInjectedService @Inject() (implicit ec: ExecutionContext) {
   def execute(): Future[Unit] = Future {
     Thread.sleep(3000)
-    println(s" [ Injected ec ] ${Thread.currentThread().getName} with a hash code of : ${Thread.currentThread().hashCode()}")
+    println(s" [Service][Injected ec] ${Thread.currentThread().getName} with a hash code of : ${Thread.currentThread().hashCode()}")
   }
 }
